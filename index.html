@@ -4,61 +4,73 @@
   <meta charset="UTF-8">
   <title>Time To Show</title>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Cinematic Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: radial-gradient(circle at center, #120000 0%, #000 75%);
-      color: #e5e5e5;
+      background:
+        radial-gradient(circle at center, rgba(120,0,0,0.25) 0%, #000 70%),
+        #000;
+      color: #f2f2f2;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       font-family: 'Cinzel', serif;
       text-align: center;
-      animation: pulseBg 6s infinite alternate;
+      animation: slowBreath 8s infinite alternate;
     }
 
-    @keyframes pulseBg {
+    @keyframes slowBreath {
       0% { background-color: #000; }
-      100% { background-color: #080000; }
+      100% { background-color: #050000; }
     }
 
     h1 {
-      font-size: 1.25rem;
-      letter-spacing: 3px;
-      font-weight: 400;
-      margin-bottom: 55px;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      margin-bottom: 80px;
       text-transform: uppercase;
-      color: #b00000;
+      color: #7a0000;
       opacity: 0.9;
     }
 
     .timer {
       display: flex;
-      gap: 28px;
+      gap: 60px;
+      animation: subtleFlicker 6s infinite;
+    }
+
+    @keyframes subtleFlicker {
+      0% { opacity: 1; }
+      48% { opacity: 0.96; }
+      50% { opacity: 0.85; }
+      52% { opacity: 0.96; }
+      100% { opacity: 1; }
     }
 
     .unit {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 90px;
+      min-width: 140px;
     }
 
     .number {
-      font-size: 3.3rem;
-      font-weight: 600;
-      color: #fff;
+      font-size: 6.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: #ffffff;
       text-shadow:
-        0 0 10px rgba(180, 0, 0, 0.7),
-        0 0 25px rgba(180, 0, 0, 0.4);
+        0 0 20px rgba(140, 0, 0, 0.9),
+        0 0 60px rgba(140, 0, 0, 0.6);
     }
 
-    /* 👁️ لرزش روانی ثانیه‌ها */
+    /* ثانیه‌ها زنده و ناآرام */
     #seconds {
       animation: twitch 0.12s infinite;
     }
@@ -73,28 +85,27 @@
     }
 
     .label {
-      margin-top: 10px;
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: #777;
+      margin-top: 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #999;
     }
 
-    /* فلیکر خفیف نور */
-    .timer {
-      animation: flicker 4s infinite;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 1; }
-      45% { opacity: 0.95; }
-      50% { opacity: 0.85; }
-      55% { opacity: 0.95; }
-      100% { opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      .timer { gap: 16px; }
-      .number { font-size: 2.4rem; }
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 50px;
+      }
+      .timer {
+        gap: 22px;
+      }
+      .number {
+        font-size: 3.2rem;
+      }
+      .unit {
+        min-width: 80px;
+      }
     }
   </style>
 </head>
@@ -122,7 +133,6 @@
 </div>
 
 <script>
-  // Fixed final date
   const endDate = new Date("January 25, 2026 00:00:00");
 
   function updateCountdown() {
