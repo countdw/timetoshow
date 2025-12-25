@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Time To Show</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    #countdown {
+      font-size: 3rem;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Time remaining until the first photo reveal</h1>
+<div id="countdown"></div>
+
+<script>
+  // Target date: January 25, 2026 at 00:00
+  const endDate = new Date("January 25, 2026 00:00:00");
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = endDate - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerText = "00:00:00:00";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerText =
+      `${days} : ${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
