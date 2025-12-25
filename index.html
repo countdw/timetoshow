@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Time To Show</title>
 
-  <!-- Cinematic Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 
   <style>
@@ -31,12 +30,18 @@
 
     h1 {
       font-size: 1.6rem;
-      font-weight: 700;
       letter-spacing: 6px;
-      margin-bottom: 80px;
+      margin-bottom: 14px;
       text-transform: uppercase;
       color: #7a0000;
-      opacity: 0.9;
+    }
+
+    .date {
+      font-size: 0.95rem;
+      letter-spacing: 4px;
+      margin-bottom: 80px;
+      color: #aaa;
+      opacity: 0.85;
     }
 
     .timer {
@@ -47,9 +52,7 @@
 
     @keyframes subtleFlicker {
       0% { opacity: 1; }
-      48% { opacity: 0.96; }
       50% { opacity: 0.85; }
-      52% { opacity: 0.96; }
       100% { opacity: 1; }
     }
 
@@ -64,54 +67,40 @@
       font-size: 6.5rem;
       font-weight: 900;
       line-height: 1;
-      color: #ffffff;
       text-shadow:
         0 0 20px rgba(140, 0, 0, 0.9),
         0 0 60px rgba(140, 0, 0, 0.6);
     }
 
-    /* ثانیه‌ها زنده و ناآرام */
     #seconds {
       animation: twitch 0.12s infinite;
     }
 
     @keyframes twitch {
-      0% { transform: translate(0, 0); }
-      20% { transform: translate(-1px, 0); }
-      40% { transform: translate(1px, 0); }
-      60% { transform: translate(0, -1px); }
-      80% { transform: translate(0, 1px); }
-      100% { transform: translate(0, 0); }
+      0% { transform: translate(0,0); }
+      50% { transform: translate(1px,-1px); }
+      100% { transform: translate(0,0); }
     }
 
     .label {
       margin-top: 18px;
       font-size: 1rem;
-      font-weight: 700;
       letter-spacing: 4px;
       color: #999;
     }
 
     @media (max-width: 700px) {
-      h1 {
-        font-size: 1.2rem;
-        margin-bottom: 50px;
-      }
-      .timer {
-        gap: 22px;
-      }
-      .number {
-        font-size: 3.2rem;
-      }
-      .unit {
-        min-width: 80px;
-      }
+      .number { font-size: 3.2rem; }
+      .timer { gap: 22px; }
+      .unit { min-width: 80px; }
+      .date { margin-bottom: 50px; }
     }
   </style>
 </head>
 <body>
 
 <h1>Time remaining until the first photo reveal</h1>
+<div class="date">JANUARY 25, 2026 — 00:00</div>
 
 <div class="timer">
   <div class="unit">
@@ -144,15 +133,14 @@
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+    document.getElementById("days").innerText =
+      Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerText =
+      String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+    document.getElementById("minutes").innerText =
+      String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+    document.getElementById("seconds").innerText =
+      String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
   }
 
   updateCountdown();
