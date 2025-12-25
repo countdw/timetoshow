@@ -1,128 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Time To Show</title>
+<meta charset="UTF-8">
+<title>Time To Show</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background:
-        radial-gradient(circle at center, rgba(140,0,0,0.25) 0%, #000 68%),
-        #000;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Cinzel', serif;
-      text-align: center;
-      animation: slowBreath 8s infinite alternate;
-    }
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background:
+    radial-gradient(circle at center, rgba(160,0,0,0.35) 0%, #000 65%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  animation: breath 6s infinite alternate;
+}
 
-    @keyframes slowBreath {
-      0% { background-color: #000; }
-      100% { background-color: #060000; }
-    }
+@keyframes breath {
+  from { filter: brightness(0.9); }
+  to { filter: brightness(1.05); }
+}
 
-    h1 {
-      font-size: 1.7rem;
-      letter-spacing: 6px;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-      color: #b30000;
-      text-shadow: 0 0 6px rgba(180,0,0,0.4);
-    }
+h1 {
+  font-size: 1.8rem;
+  letter-spacing: 6px;
+  color: #c00000;
+  margin-bottom: 20px;
+}
 
-    .date {
-      font-size: 1.05rem;
-      letter-spacing: 5px;
-      margin-bottom: 85px;
-      color: #e0e0e0;
-      font-weight: 700;
-    }
+.date {
+  font-size: 1.1rem;
+  letter-spacing: 6px;
+  margin-bottom: 90px;
+  font-weight: 700;
+}
 
-    .date span {
-      color: #ff2a2a;
-    }
+.blink {
+  color: #ff2a2a;
+  animation: blinkText 3.5s infinite;
+}
 
-    .timer {
-      display: flex;
-      gap: 60px;
-      animation: subtleFlicker 6s infinite;
-    }
+@keyframes blinkText {
+  0% { opacity: 1; }
+  40% { opacity: 1; }
+  45% { opacity: 0; }
+  50% { opacity: 1; }
+  70% { opacity: 1; }
+  72% { opacity: 0; }
+  75% { opacity: 1; }
+  100% { opacity: 1; }
+}
 
-    @keyframes subtleFlicker {
-      0% { opacity: 1; }
-      50% { opacity: 0.92; }
-      100% { opacity: 1; }
-    }
+.timer {
+  display: flex;
+  gap: 65px;
+  animation: heartbeat 2.2s infinite;
+}
 
-    .unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 140px;
-    }
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  10% { transform: scale(1.04); }
+  20% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
 
-    .number {
-      font-size: 6.4rem;
-      font-weight: 900;
-      line-height: 1;
-      color: #ffffff;
-      text-shadow:
-        0 0 14px rgba(160, 0, 0, 0.8),
-        0 0 40px rgba(160, 0, 0, 0.5);
-    }
+.unit {
+  min-width: 150px;
+}
 
-    /* لرزش روانی ثانیه‌ها */
-    #seconds {
-      animation: twitch 0.12s infinite;
-    }
+.number {
+  font-size: 7rem;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow:
+    2px 0 red,
+    -2px 0 cyan,
+    0 0 30px rgba(200,0,0,0.9);
+}
 
-    @keyframes twitch {
-      0% { transform: translate(0,0); }
-      50% { transform: translate(1px,-1px); }
-      100% { transform: translate(0,0); }
-    }
+#seconds {
+  animation: glitch 0.15s infinite;
+}
 
-    .label {
-      margin-top: 18px;
-      font-size: 1.05rem;
-      letter-spacing: 4px;
-      color: #cccccc;
-      font-weight: 700;
-    }
+@keyframes glitch {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-2px,1px); }
+  50% { transform: translate(2px,-1px); }
+  75% { transform: translate(-1px,2px); }
+  100% { transform: translate(0,0); }
+}
 
-    @media (max-width: 700px) {
-      h1 {
-        font-size: 1.3rem;
-      }
-      .date {
-        font-size: 0.9rem;
-        margin-bottom: 55px;
-      }
-      .timer {
-        gap: 22px;
-      }
-      .number {
-        font-size: 3.2rem;
-      }
-      .unit {
-        min-width: 80px;
-      }
-    }
-  </style>
+.label {
+  margin-top: 18px;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #ddd;
+}
+
+.notice {
+  margin-top: 60px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+
+@media (max-width: 700px) {
+  .number { font-size: 3.4rem; }
+  .timer { gap: 22px; }
+  .unit { min-width: 80px; }
+}
+</style>
 </head>
+
 <body>
 
 <h1>Time remaining until the first photo reveal</h1>
 
 <div class="date">
-  JANUARY 25, 2026 — <span>IT BEGINS</span>
+  JANUARY 25, 2026 — <span class="blink">IT BEGINS</span>
 </div>
 
 <div class="timer">
@@ -144,30 +153,59 @@
   </div>
 </div>
 
+<div class="notice">tap anywhere to awaken the sound</div>
+
 <script>
-  const endDate = new Date("January 25, 2026 00:00:00");
+/* ===== Countdown ===== */
+const endDate = new Date("January 25, 2026 00:00:00");
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = endDate - now;
+function updateCountdown() {
+  const now = new Date();
+  const diff = endDate - now;
 
-    if (diff <= 0) {
-      document.querySelectorAll('.number').forEach(el => el.innerText = "00");
-      return;
-    }
-
-    document.getElementById("days").innerText =
-      Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").innerText =
-      String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-    document.getElementById("minutes").innerText =
-      String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
-    document.getElementById("seconds").innerText =
-      String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+  if (diff <= 0) {
+    document.querySelectorAll('.number').forEach(n => n.innerText = "00");
+    return;
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  days.innerText = Math.floor(diff / (1000*60*60*24));
+  hours.innerText = String(Math.floor(diff / (1000*60*60) % 24)).padStart(2,'0');
+  minutes.innerText = String(Math.floor(diff / (1000*60) % 60)).padStart(2,'0');
+  seconds.innerText = String(Math.floor(diff / 1000 % 60)).padStart(2,'0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ===== Heartbeat Sound (Web Audio) ===== */
+let audioStarted = false;
+let ctx, osc, gain;
+
+function startHeartbeat() {
+  if (audioStarted) return;
+  audioStarted = true;
+
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  osc = ctx.createOscillator();
+  gain = ctx.createGain();
+
+  osc.type = "sine";
+  osc.frequency.value = 60; // بم و ترسناک
+  gain.gain.value = 0;
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+
+  setInterval(() => {
+    gain.gain.setValueAtTime(0.0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.05);
+    gain.gain.linearRampToValueAtTime(0.0, ctx.currentTime + 0.25);
+  }, 1200);
+}
+
+document.body.addEventListener("click", startHeartbeat);
+document.body.addEventListener("touchstart", startHeartbeat);
 </script>
 
 </body>
