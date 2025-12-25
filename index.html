@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <title>Time To Show</title>
 
-  <!-- Google Font -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: radial-gradient(circle at center, #111 0%, #000 70%);
+      background: radial-gradient(circle at center, #120000 0%, #000 75%);
       color: #e5e5e5;
       display: flex;
       flex-direction: column;
@@ -19,20 +19,27 @@
       align-items: center;
       font-family: 'Cinzel', serif;
       text-align: center;
+      animation: pulseBg 6s infinite alternate;
+    }
+
+    @keyframes pulseBg {
+      0% { background-color: #000; }
+      100% { background-color: #080000; }
     }
 
     h1 {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       letter-spacing: 3px;
       font-weight: 400;
-      margin-bottom: 50px;
+      margin-bottom: 55px;
       text-transform: uppercase;
-      color: #b30000;
+      color: #b00000;
+      opacity: 0.9;
     }
 
     .timer {
       display: flex;
-      gap: 25px;
+      gap: 28px;
     }
 
     .unit {
@@ -42,4 +49,105 @@
       min-width: 90px;
     }
 
-    .
+    .number {
+      font-size: 3.3rem;
+      font-weight: 600;
+      color: #fff;
+      text-shadow:
+        0 0 10px rgba(180, 0, 0, 0.7),
+        0 0 25px rgba(180, 0, 0, 0.4);
+    }
+
+    /* 👁️ لرزش روانی ثانیه‌ها */
+    #seconds {
+      animation: twitch 0.12s infinite;
+    }
+
+    @keyframes twitch {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-1px, 0); }
+      40% { transform: translate(1px, 0); }
+      60% { transform: translate(0, -1px); }
+      80% { transform: translate(0, 1px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .label {
+      margin-top: 10px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: #777;
+    }
+
+    /* فلیکر خفیف نور */
+    .timer {
+      animation: flicker 4s infinite;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      45% { opacity: 0.95; }
+      50% { opacity: 0.85; }
+      55% { opacity: 0.95; }
+      100% { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .timer { gap: 16px; }
+      .number { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Time remaining until the first photo reveal</h1>
+
+<div class="timer">
+  <div class="unit">
+    <div class="number" id="days">00</div>
+    <div class="label">DAYS</div>
+  </div>
+  <div class="unit">
+    <div class="number" id="hours">00</div>
+    <div class="label">HOURS</div>
+  </div>
+  <div class="unit">
+    <div class="number" id="minutes">00</div>
+    <div class="label">MINUTES</div>
+  </div>
+  <div class="unit">
+    <div class="number" id="seconds">00</div>
+    <div class="label">SECONDS</div>
+  </div>
+</div>
+
+<script>
+  // Fixed final date
+  const endDate = new Date("January 25, 2026 00:00:00");
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = endDate - now;
+
+    if (diff <= 0) {
+      document.querySelectorAll('.number').forEach(el => el.innerText = "00");
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
