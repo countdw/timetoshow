@@ -11,9 +11,9 @@
       margin: 0;
       height: 100vh;
       background:
-        radial-gradient(circle at center, rgba(120,0,0,0.25) 0%, #000 70%),
+        radial-gradient(circle at center, rgba(140,0,0,0.25) 0%, #000 68%),
         #000;
-      color: #f2f2f2;
+      color: #ffffff;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -25,23 +25,28 @@
 
     @keyframes slowBreath {
       0% { background-color: #000; }
-      100% { background-color: #050000; }
+      100% { background-color: #060000; }
     }
 
     h1 {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       letter-spacing: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
       text-transform: uppercase;
-      color: #7a0000;
+      color: #b30000;
+      text-shadow: 0 0 6px rgba(180,0,0,0.4);
     }
 
     .date {
-      font-size: 0.95rem;
-      letter-spacing: 4px;
-      margin-bottom: 80px;
-      color: #aaa;
-      opacity: 0.85;
+      font-size: 1.05rem;
+      letter-spacing: 5px;
+      margin-bottom: 85px;
+      color: #e0e0e0;
+      font-weight: 700;
+    }
+
+    .date span {
+      color: #ff2a2a;
     }
 
     .timer {
@@ -52,7 +57,7 @@
 
     @keyframes subtleFlicker {
       0% { opacity: 1; }
-      50% { opacity: 0.85; }
+      50% { opacity: 0.92; }
       100% { opacity: 1; }
     }
 
@@ -64,14 +69,16 @@
     }
 
     .number {
-      font-size: 6.5rem;
+      font-size: 6.4rem;
       font-weight: 900;
       line-height: 1;
+      color: #ffffff;
       text-shadow:
-        0 0 20px rgba(140, 0, 0, 0.9),
-        0 0 60px rgba(140, 0, 0, 0.6);
+        0 0 14px rgba(160, 0, 0, 0.8),
+        0 0 40px rgba(160, 0, 0, 0.5);
     }
 
+    /* لرزش روانی ثانیه‌ها */
     #seconds {
       animation: twitch 0.12s infinite;
     }
@@ -84,23 +91,39 @@
 
     .label {
       margin-top: 18px;
-      font-size: 1rem;
+      font-size: 1.05rem;
       letter-spacing: 4px;
-      color: #999;
+      color: #cccccc;
+      font-weight: 700;
     }
 
     @media (max-width: 700px) {
-      .number { font-size: 3.2rem; }
-      .timer { gap: 22px; }
-      .unit { min-width: 80px; }
-      .date { margin-bottom: 50px; }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .date {
+        font-size: 0.9rem;
+        margin-bottom: 55px;
+      }
+      .timer {
+        gap: 22px;
+      }
+      .number {
+        font-size: 3.2rem;
+      }
+      .unit {
+        min-width: 80px;
+      }
     }
   </style>
 </head>
 <body>
 
 <h1>Time remaining until the first photo reveal</h1>
-<div class="date">JANUARY 25, 2026 — 00:00</div>
+
+<div class="date">
+  JANUARY 25, 2026 — <span>IT BEGINS</span>
+</div>
 
 <div class="timer">
   <div class="unit">
