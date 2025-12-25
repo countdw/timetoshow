@@ -38,7 +38,8 @@ h1 {
   font-size: 1.8rem;
   letter-spacing: 6px;
   color: #c00000;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+  text-transform: uppercase;
 }
 
 .date {
@@ -111,13 +112,6 @@ h1 {
   color: #ddd;
 }
 
-.notice {
-  margin-top: 60px;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  opacity: 0.6;
-}
-
 @media (max-width: 700px) {
   .number { font-size: 3.4rem; }
   .timer { gap: 22px; }
@@ -153,8 +147,6 @@ h1 {
   </div>
 </div>
 
-<div class="notice">tap anywhere to awaken the sound</div>
-
 <script>
 /* ===== Countdown ===== */
 const endDate = new Date("January 25, 2026 00:00:00");
@@ -177,7 +169,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-/* ===== Heartbeat Sound (Web Audio) ===== */
+/* ===== Heartbeat Sound (Auto) ===== */
 let audioStarted = false;
 let ctx, osc, gain;
 
@@ -186,11 +178,12 @@ function startHeartbeat() {
   audioStarted = true;
 
   ctx = new (window.AudioContext || window.webkitAudioContext)();
+
   osc = ctx.createOscillator();
   gain = ctx.createGain();
 
   osc.type = "sine";
-  osc.frequency.value = 60; // بم و ترسناک
+  osc.frequency.value = 58; 
   gain.gain.value = 0;
 
   osc.connect(gain);
@@ -198,14 +191,22 @@ function startHeartbeat() {
   osc.start();
 
   setInterval(() => {
+    gain.gain.cancelScheduledValues(ctx.currentTime);
     gain.gain.setValueAtTime(0.0, ctx.currentTime);
     gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.05);
-    gain.gain.linearRampToValueAtTime(0.0, ctx.currentTime + 0.25);
-  }, 1200);
+    gain.gain.linearRampToValueAtTime(0.0, ctx.currentTime + 0.3);
+  }, 1100);
 }
 
-document.body.addEventListener("click", startHeartbeat);
-document.body.addEventListener("touchstart", startHeartbeat);
+
+window.addEventListener("load", () => {
+  startHeartbeat();
+});
+
+
+["click","touchstart","scroll","keydown"].forEach(evt => {
+  document.addEventListener(evt, startHeartbeat, { once: true });
+});
 </script>
 
 </body>
