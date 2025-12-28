@@ -11,7 +11,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at center, rgba(160,0,0,0.35) 0%, #000 65%),
+    radial-gradient(circle at center, rgba(100,0,0,0.35) 0%, #000 65%),
     repeating-linear-gradient(
       0deg,
       rgba(255,255,255,0.02),
@@ -34,52 +34,75 @@ h1 {
   padding-top: 40px;
   font-size: 1.8rem;
   letter-spacing: 6px;
-  color: #c00000;
+  color: #e0e0e0;
   text-transform: uppercase;
 }
 
-/* ===== Rows ===== */
+/* ===== Layout ===== */
 .container {
   max-width: 1200px;
-  margin: 80px auto;
+  margin: 90px auto;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: 140px;
   padding: 0 30px;
 }
 
 .row {
   display: flex;
   align-items: center;
-  gap: 80px;
+  gap: 90px;
 }
 
 /* ===== Preview Box ===== */
 .preview {
   width: 260px;
   height: 360px;
-  border: 2px solid rgba(200,0,0,0.6);
-  background:
-    linear-gradient(135deg, #000 40%, #1a0000 100%);
-  box-shadow:
-    0 0 40px rgba(200,0,0,0.4),
-    inset 0 0 30px rgba(0,0,0,0.9);
   position: relative;
+  background: #000;
+  overflow: hidden;
+  animation: flicker 4s infinite;
+}
+
+.preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg,
+      transparent 40%,
+      rgba(255,255,255,0.15),
+      transparent 60%);
+  opacity: 0;
+  animation: flash 5s infinite;
 }
 
 .preview::after {
-  content: "PREVIEW";
+  content: "LOCKED";
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: 6px;
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.15);
+  font-size: 1rem;
+  opacity: 0.25;
 }
 
-/* ===== Timer ===== */
+@keyframes flicker {
+  0%,100% { opacity: 1; }
+  92% { opacity: 0.85; }
+  94% { opacity: 0.4; }
+  96% { opacity: 1; }
+}
+
+@keyframes flash {
+  0%,90% { opacity: 0; }
+  92% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+
+/* ===== Timers ===== */
 .timer {
   display: flex;
   gap: 60px;
@@ -93,18 +116,12 @@ h1 {
   100% { transform: scale(1); }
 }
 
-.unit {
-  min-width: 120px;
-}
+.unit { min-width: 120px; }
 
 .number {
   font-size: 6rem;
   font-weight: 900;
   line-height: 1;
-  text-shadow:
-    2px 0 red,
-    -2px 0 cyan,
-    0 0 30px rgba(200,0,0,0.9);
 }
 
 .seconds {
@@ -124,10 +141,26 @@ h1 {
   font-size: 1rem;
   letter-spacing: 4px;
   font-weight: 700;
-  color: #ddd;
 }
 
-/* ===== Date line ===== */
+/* ===== THEMES ===== */
+.red .number {
+  text-shadow: 2px 0 red, -2px 0 crimson, 0 0 30px rgba(200,0,0,0.9);
+}
+.red .preview {
+  border: 2px solid rgba(200,0,0,0.6);
+  box-shadow: 0 0 40px rgba(200,0,0,0.5);
+}
+
+.blue .number {
+  text-shadow: 2px 0 #00b7ff, -2px 0 #0033ff, 0 0 30px rgba(0,120,255,0.9);
+}
+.blue .preview {
+  border: 2px solid rgba(0,120,255,0.6);
+  box-shadow: 0 0 40px rgba(0,120,255,0.5);
+}
+
+/* ===== Dates ===== */
 .date {
   margin-bottom: 30px;
   letter-spacing: 5px;
@@ -135,7 +168,6 @@ h1 {
 }
 
 .blink {
-  color: #ff2a2a;
   animation: blinkText 3.5s infinite;
 }
 
@@ -146,70 +178,41 @@ h1 {
 
 /* ===== Mobile ===== */
 @media (max-width: 900px) {
-  .row {
-    flex-direction: column;
-  }
-  .container {
-    gap: 100px;
-  }
+  .row { flex-direction: column; }
 }
 </style>
 </head>
 
 <body>
 
-<h1>Time remaining until the first photo reveal</h1>
+<h1>Time remaining until photos...</h1>
 
 <div class="container">
 
-  <!-- ===== ROW 1 ===== -->
-  <div>
+  <!-- ROW 1 -->
+  <div class="red">
     <div class="date">JANUARY 25, 2026 — <span class="blink">IT BEGINS</span></div>
     <div class="row">
       <div class="preview"></div>
       <div class="timer" data-date="2026-01-25T00:00:00">
-        <div class="unit">
-          <div class="number days">00</div>
-          <div class="label">DAYS</div>
-        </div>
-        <div class="unit">
-          <div class="number hours">00</div>
-          <div class="label">HOURS</div>
-        </div>
-        <div class="unit">
-          <div class="number minutes">00</div>
-          <div class="label">MINUTES</div>
-        </div>
-        <div class="unit">
-          <div class="number seconds">00</div>
-          <div class="label">SECONDS</div>
-        </div>
+        <div class="unit"><div class="number days">00</div><div class="label">DAYS</div></div>
+        <div class="unit"><div class="number hours">00</div><div class="label">HOURS</div></div>
+        <div class="unit"><div class="number minutes">00</div><div class="label">MINUTES</div></div>
+        <div class="unit"><div class="number seconds">00</div><div class="label">SECONDS</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ===== ROW 2 ===== -->
-  <div>
+  <!-- ROW 2 -->
+  <div class="blue">
     <div class="date">FEBRUARY 25, 2026 — <span class="blink">IT CONTINUES</span></div>
     <div class="row">
       <div class="preview"></div>
       <div class="timer" data-date="2026-02-25T00:00:00">
-        <div class="unit">
-          <div class="number days">00</div>
-          <div class="label">DAYS</div>
-        </div>
-        <div class="unit">
-          <div class="number hours">00</div>
-          <div class="label">HOURS</div>
-        </div>
-        <div class="unit">
-          <div class="number minutes">00</div>
-          <div class="label">MINUTES</div>
-        </div>
-        <div class="unit">
-          <div class="number seconds">00</div>
-          <div class="label">SECONDS</div>
-        </div>
+        <div class="unit"><div class="number days">00</div><div class="label">DAYS</div></div>
+        <div class="unit"><div class="number hours">00</div><div class="label">HOURS</div></div>
+        <div class="unit"><div class="number minutes">00</div><div class="label">MINUTES</div></div>
+        <div class="unit"><div class="number seconds">00</div><div class="label">SECONDS</div></div>
       </div>
     </div>
   </div>
@@ -217,61 +220,28 @@ h1 {
 </div>
 
 <script>
-/* ===== Multiple Countdown ===== */
 function updateTimers() {
   document.querySelectorAll('.timer').forEach(timer => {
-    const endDate = new Date(timer.dataset.date);
-    const diff = endDate - new Date();
+    const end = new Date(timer.dataset.date) - new Date();
+    const d = timer.querySelector('.days');
+    const h = timer.querySelector('.hours');
+    const m = timer.querySelector('.minutes');
+    const s = timer.querySelector('.seconds');
 
-    const days = timer.querySelector('.days');
-    const hours = timer.querySelector('.hours');
-    const minutes = timer.querySelector('.minutes');
-    const seconds = timer.querySelector('.seconds');
-
-    if (diff <= 0) {
-      days.innerText = hours.innerText = minutes.innerText = seconds.innerText = "00";
+    if (end <= 0) {
+      d.innerText = h.innerText = m.innerText = s.innerText = "00";
       return;
     }
 
-    days.innerText = Math.floor(diff / (1000*60*60*24));
-    hours.innerText = String(Math.floor(diff / (1000*60*60) % 24)).padStart(2,'0');
-    minutes.innerText = String(Math.floor(diff / (1000*60) % 60)).padStart(2,'0');
-    seconds.innerText = String(Math.floor(diff / 1000 % 60)).padStart(2,'0');
+    d.innerText = Math.floor(end / (1000*60*60*24));
+    h.innerText = String(Math.floor(end / (1000*60*60) % 24)).padStart(2,'0');
+    m.innerText = String(Math.floor(end / (1000*60) % 60)).padStart(2,'0');
+    s.innerText = String(Math.floor(end / 1000 % 60)).padStart(2,'0');
   });
 }
 
 updateTimers();
 setInterval(updateTimers, 1000);
-
-/* ===== Heartbeat Sound ===== */
-let audioStarted = false;
-function startHeartbeat() {
-  if (audioStarted) return;
-  audioStarted = true;
-
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-
-  osc.type = "sine";
-  osc.frequency.value = 58;
-  gain.gain.value = 0;
-
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start();
-
-  setInterval(() => {
-    gain.gain.setValueAtTime(0, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.05);
-    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
-  }, 1100);
-}
-
-window.addEventListener("load", startHeartbeat);
-["click","touchstart","scroll","keydown"].forEach(e =>
-  document.addEventListener(e, startHeartbeat, { once: true })
-);
 </script>
 
 </body>
